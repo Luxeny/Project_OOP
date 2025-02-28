@@ -137,6 +137,7 @@ class DocumentManager
         foreach (var doc in _documents)
         {
             doc.DisplayInfo();
+            WriteLine("--------------------------------");
         }
     }
 }
@@ -148,11 +149,11 @@ class Program
     {
         DocumentManager manager = DocumentManager.GetInstance();
 
-        manager.AddDocument(new WordDocument("Документ1", "Автор1", "ключ1", "Тема1", "C:/docs/doc1.docx", 500));
-        manager.AddDocument(new PDFDocument("Документ2", "Автор2", "ключ2", "Тема2", "C:/docs/doc2.pdf", true));
-        manager.AddDocument(new ExcelDocument("Документ3", "Автор3", "ключ3", "Тема3", "C:/docs/doc3.xlsx", 3));
-        manager.AddDocument(new TextDocument("Документ4", "Автор4", "ключ4", "Тема4", "C:/docs/doc4.txt", 100));
-        manager.AddDocument(new HTMLDocument("Документ5", "Автор5", "ключ5", "Тема5", "C:/docs/doc5.html", "HTML5"));
+        manager.AddDocument(new WordDocument("Отчет о продажах", "Иван Петров", "финансы, отчет", "Бизнес-аналитика", "C:/docs/sales_report.docx", 25));
+        manager.AddDocument(new PdfDocument("Договор аренды", "ООО 'Аренда Плюс'", "юридический, аренда", "Юридические документы", "C:/docs/rent_agreement.pdf", true));
+        manager.AddDocument(new ExcelDocument("Бюджет компании", "Анна Смирнова", "финансы, бюджет", "Финансовый анализ", "C:/docs/company_budget.xlsx", 5));
+        manager.AddDocument(new TextDocument("Список дел", "Дмитрий Орлов", "задачи, организация", "Персональный менеджмент", "C:/docs/todo_list.txt", "UTF-8"));
+        manager.AddDocument(new HtmlDocument("Главная страница сайта", "Алексей Иванов", "веб-разработка, сайт", "Разработка", "C:/docs/index.html", true));
 
         manager.ShowDocuments();
     }
