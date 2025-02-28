@@ -11,7 +11,7 @@ class Document
     public string Topic { get; set; }
     public string FilePath { get; set; }
 
-    protected Document(string name, string author, string keywords, string topic, string filePath)
+    public Document(string name, string author, string keywords, string topic, string filePath)
     {
         Name = name;
         Author = author;
