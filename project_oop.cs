@@ -126,10 +126,21 @@ class DocumentManager
 
   public void ShowDocuments()
   {
-    foreach (var doc in _documents)
+    for (int docIndex = 0; docIndex < _documents.Count; ++docIndex)
     {
-      doc.DisplayInfo();
-      WriteLine("--------------------------------");
+      WriteLine($"{docIndex + 1} - {_documents[docIndex].Info[0]}");
+    }
+  }
+
+  public void ShowDocumentInfo(int index)
+  {
+    if (index >= 0 && index < _documents.Count)
+    {
+      _documents[index].DisplayInfo();
+    }
+    else
+    {
+      WriteLine("Некорректный номер документа.");
     }
   }
 }
@@ -147,6 +158,20 @@ class Program
     manager.AddDocument(new TextDocument(new List<string>{"Список дел", "Дмитрий Орлов", "задачи, организация", "Персональный менеджмент", "C:/docs/todo_list.txt"}, "UTF-8"));
     manager.AddDocument(new HtmlDocument(new List<string>{"Главная страница сайта", "Алексей Иванов", "веб-разработка, сайт", "Разработка", "C:/docs/index.html"}, true));
 
-    manager.ShowDocuments();
+    while (true)
+    {
+      WriteLine("Выберите документ для просмотра (0 для выхода):");
+      manager.ShowDocuments();
+      if (int.TryParse(ReadLine(), out int choice) && choice > 0)
+      {
+        WriteLine("--------------------------------");
+        manager.ShowDocumentInfo(choice - 1);
+        WriteLine("--------------------------------\n");
+      }
+      else
+      {
+        break;
+      }
+    }
   }
 }
