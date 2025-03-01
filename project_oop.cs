@@ -5,24 +5,16 @@ using static System.Console;
 // Базовый класс для документа
 class Document
 {
-  public string Name { get; set; }
-  public string Author { get; set; }
-  public string Keywords { get; set; }
-  public string Topic { get; set; }
-  public string FilePath { get; set; }
+  public List<string> Info { get; set; }
 
-  public Document(string name, string author, string keywords, string topic, string filePath)
+  public Document(List<string> info)
   {
-    Name = name;
-    Author = author;
-    Keywords = keywords;
-    Topic = topic;
-    FilePath = filePath;
+    Info = info;
   }
 
   public virtual void DisplayInfo()
   {
-    WriteLine($"Документ: {Name}, Автор: {Author}, Ключевые слова: {Keywords}, Тематика: {Topic}, Путь: {FilePath}");
+    WriteLine($"Документ: {Info[0]}, Автор: {Info[1]}, Ключевые слова: {Info[2]}, Тематика: {Info[3]}, Путь: {Info[4]}");
   }
 }
 
@@ -31,8 +23,8 @@ class WordDocument : Document
 {
   public int PageCount { get; set; }
 
-  public WordDocument(string name, string author, string keywords, string topic, string filePath, int pageCount)
-    : base(name, author, keywords, topic, filePath)
+  public WordDocument(List<string> info, int pageCount)
+    : base(info)
   {
     PageCount = pageCount;
   }
@@ -48,8 +40,8 @@ class PdfDocument : Document
 {
   public bool HasDigitalSignature { get; set; }
 
-  public PdfDocument(string name, string author, string keywords, string topic, string filePath, bool hasDigitalSignature)
-    : base(name, author, keywords, topic, filePath)
+  public PdfDocument(List<string> info, bool hasDigitalSignature)
+    : base(info)
   {
     HasDigitalSignature = hasDigitalSignature;
   }
@@ -65,8 +57,8 @@ class ExcelDocument : Document
 {
   public int SheetCount { get; set; }
 
-  public ExcelDocument(string name, string author, string keywords, string topic, string filePath, int sheetCount)
-    : base(name, author, keywords, topic, filePath)
+  public ExcelDocument(List<string> info, int sheetCount)
+    : base(info)
   {
     SheetCount = sheetCount;
   }
@@ -82,8 +74,8 @@ class TextDocument : Document
 {
   public string Encoding { get; set; }
 
-  public TextDocument(string name, string author, string keywords, string topic, string filePath, string encoding)
-    : base(name, author, keywords, topic, filePath)
+  public TextDocument(List<string> info, string encoding)
+    : base(info)
   {
     Encoding = encoding;
   }
@@ -99,8 +91,8 @@ class HtmlDocument : Document
 {
   public bool HasCss { get; set; }
 
-  public HtmlDocument(string name, string author, string keywords, string topic, string filePath, bool hasCss)
-    : base(name, author, keywords, topic, filePath)
+  public HtmlDocument(List<string> info, bool hasCss)
+    : base(info)
   {
     HasCss = hasCss;
   }
@@ -149,11 +141,11 @@ class Program
   {
     DocumentManager manager = DocumentManager.GetInstance();
 
-    manager.AddDocument(new WordDocument("Отчет о продажах", "Иван Петров", "финансы, отчет", "Бизнес-аналитика", "C:/docs/sales_report.docx", 25));
-    manager.AddDocument(new PdfDocument("Договор аренды", "ООО 'Аренда Плюс'", "юридический, аренда", "Юридические документы", "C:/docs/rent_agreement.pdf", true));
-    manager.AddDocument(new ExcelDocument("Бюджет компании", "Анна Смирнова", "финансы, бюджет", "Финансовый анализ", "C:/docs/company_budget.xlsx", 5));
-    manager.AddDocument(new TextDocument("Список дел", "Дмитрий Орлов", "задачи, организация", "Персональный менеджмент", "C:/docs/todo_list.txt", "UTF-8"));
-    manager.AddDocument(new HtmlDocument("Главная страница сайта", "Алексей Иванов", "веб-разработка, сайт", "Разработка", "C:/docs/index.html", true));
+    manager.AddDocument(new WordDocument(new List<string>{"Отчет о продажах", "Иван Петров", "финансы, отчет", "Бизнес-аналитика", "C:/docs/sales_report.docx"}, 25));
+    manager.AddDocument(new PdfDocument(new List<string>{"Договор аренды", "ООО 'Аренда Плюс'", "юридический, аренда", "Юридические документы", "C:/docs/rent_agreement.pdf"}, true));
+    manager.AddDocument(new ExcelDocument(new List<string>{"Бюджет компании", "Анна Смирнова", "финансы, бюджет", "Финансовый анализ", "C:/docs/company_budget.xlsx"}, 5));
+    manager.AddDocument(new TextDocument(new List<string>{"Список дел", "Дмитрий Орлов", "задачи, организация", "Персональный менеджмент", "C:/docs/todo_list.txt"}, "UTF-8"));
+    manager.AddDocument(new HtmlDocument(new List<string>{"Главная страница сайта", "Алексей Иванов", "веб-разработка, сайт", "Разработка", "C:/docs/index.html"}, true));
 
     manager.ShowDocuments();
   }
